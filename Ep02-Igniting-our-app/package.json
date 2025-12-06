@@ -1,0 +1,26 @@
+{
+  "name": "namaste-react",
+  "version": "1.0.0",
+  "description": "This is Namaste React by Akshay Saini",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "react",
+    "namaste",
+    "react"
+  ],
+  "author": "Kavita Mahato",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.16.1"
+  },
+  "dependencies": {
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1"
+  },
+  "browserlist": [
+    "last 2 Chrome versions",
+    "last 2 Firefox versions"
+  ]
+}
