@@ -1,70 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+export const CDN_URL = "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/";
 
-/* Our Food App structure : 
-    1) Header
-        - Logo
-        - Nav Items(right side)
-        - Cart
-    2) Body
-        - Search bar
-        - Restaurants List
-            - Restaurant card
-                - Image
-                - Name
-                - Rating
-    3) Footer
-        - Links
-        - Copyrights
-       
-*/
+export const LOGO_URL = "https://www.logodesign.net/logo/smoking-burger-with-lettuce-3624ld.png";
 
-// Header component for displaying logo and navigation items
-const Header = () => {
-    return (
-        <div className="header">
-            <div className="logo-container">
-                <img
-                    className="logo"
-                    src="https://www.logodesign.net/logo/smoking-burger-with-lettuce-3624ld.png"
-                />
-            </div>
-            <div className="nav-items">
-                <ul>
-                    <li>Home</li>
-                    <li>Offers</li>
-                    <li>Sign In</li>
-                    <li>Cart</li>
-                    <li>Help</li>
-                </ul>
-            </div>
-        </div>
-    );
-};
-
-const RestaurantCard = (props) => {
-    const { resData } = props;
-    const { cloudinaryImageId, name, avgRating, cuisines, costForTwo, sla } = resData?.info;
-    return (
-        <div className="res-card" style={{ backgroundColor: '#f0f0f0' }}>
-            <img
-                className="res-img"
-                src={
-                    'https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/' +
-                    cloudinaryImageId
-                }
-                alt="Restaurant Image"
-            />
-            <h3>{name}</h3>
-            <h4>{cuisines.join(", ")}</h4>
-            <h4>{avgRating}</h4>
-            <h4>{costForTwo}</h4>
-            <h4>{sla.deliveryTime} Minutes</h4>
-        </div>
-    );
-};
-
-const resList = [
+export const resList = [
     {
         '@type': 'type.googleapis.com/swiggy.presentation.food.v2.Restaurant',
         info: {
@@ -805,30 +743,3 @@ const resList = [
         widgetId: 'collectionV5RestaurantListWidget_SimRestoRelevance_food_seo',
     },
 ];
-
-const Body = (props) => {
-    const { resData } = props;
-    return (
-        <div className="body">
-            <div className="search">Search</div>
-            <div className="res-container">
-                {
-                    resList.map((restaurant) => <RestaurantCard key={restaurant.info.id} resData={restaurant}/>)
-                }
-            </div>
-        </div>
-    );
-};
-
-// AppLayout component to show: Header, Body, Footer
-const AppLayout = () => {
-    return (
-        <div className="app">
-            <Header />
-            <Body />
-        </div>
-    );
-};
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<AppLayout />);
