@@ -1,15 +1,29 @@
-import { resList } from "../utils/constants";
-import RestaurantCard from "./RestaurantCard";
+import { resList } from '../utils/constants';
+import { useState } from 'react';
+import RestaurantCard from './RestaurantCard';
 
-const Body = (props) => {
-    const { resData } = props;
+const Body = () => {
+    const [restaurants, setRestaurants] = useState(resList);
     return (
         <div className="body">
-            <div className="search">Search</div>
+            <button
+                className="filter-btn"
+                onClick={() => {
+                    const filteredList = restaurants.filter(
+                        (res) => res.info.avgRating >= 4.4
+                    );
+                    setRestaurants(filteredList);
+                }}
+            >
+                Top Rated Restaurant
+            </button>
             <div className="res-container">
-                {
-                    resList.map((restaurant) => <RestaurantCard key={restaurant.info.id} resData={restaurant}/>)
-                }
+                {restaurants.map((restaurant) => (
+                    <RestaurantCard
+                        key={restaurant.info.id}
+                        resData={restaurant}
+                    />
+                ))}
             </div>
         </div>
     );
