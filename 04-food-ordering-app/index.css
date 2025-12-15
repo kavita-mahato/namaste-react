@@ -27,7 +27,8 @@
 .res-container{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    width: 100vw;
+    justify-content: center;
 }
 
 .res-card{
@@ -36,7 +37,7 @@
     border: 1px solid rgb(87, 81, 81);
     padding: 8px;
     border-radius: 5px;
-    margin: 10px;
+    margin: 15px 20px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .res-card:hover{
@@ -74,4 +75,59 @@
     padding: 5px;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.shimmer-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.shimmer-card{
+    width: 300px;
+    height: 400px;
+    background-color: #f0f0f0;
+    padding: 8px;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.shimmer-btn{
+    background-color: #f0f0f0;
+    margin: 10px;
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 12%;
+}
+
+.shimmer-filter{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.signin{
+    padding: 0 20px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: medium;
+    font-weight: bold;
+    font-family: arial, "Helvetica Neue", sans-serif;
+}
+
+.filter{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.search-box{
+    padding: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.search-btn{
+    padding: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
