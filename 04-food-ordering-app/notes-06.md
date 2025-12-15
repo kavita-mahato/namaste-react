@@ -21,7 +21,7 @@ means we are not dividing software into small, well-defined modules, we use ever
 A: With `monolithic architectures`, all processes are tightly coupled and run as a single service. This means that if one process of the application experiences a spike in demand, the entire architecture must be scaled. Adding or improving a monolithic application’s features becomes more complex as the code base grows. This complexity limits experimentation and makes it difficult to implement new ideas. Monolithic architectures add risk for application availability because many dependent and tightly coupled processes increase the impact of a single process failure.
 
 With a `microservices architecture`, an application is built as independent components that run each application process as a service. These services communicate via a well-defined interface using lightweight APIs. Services are built for business capabilities and each service performs a single function. Because they are independently run, each service can be updated, deployed, and scaled to meet demand for specific functions of an application.
-![Monolith and Microservice](../Coding/Images/monolith-microservices.png)
+![Monolith and Microservice](./monolith-microservices.png)
 
 ## Q: Why do we need a `useEffect Hook`?
 A: `useEffect Hook` is javascript function provided by `react`. The useEffect Hook allows you to  `eliminate side effects` in your components. Some examples of side effects are: `fetching API data`, `directly updating the DOM`, and `setting up subscriptions or timers`, etc can be lead to unwarranted side-effects.
@@ -115,3 +115,34 @@ A: The `data` object, returned by the `await fetch()`, is a generic placeholder 
 so we can extract the `JSON object` from a `fetch` response by using `await data.json()`.
 `data.json()` is a method on the data object that lets you extract a `JSON object` from the data or response. The method returns a promise because we have used `await` keyword.
 so `data.json()` returns a promise resolved to a `JSON object`.
+
+
+# Reconciliation
+ - In React, reconciliation is the process React uses to determine how the UI should update when your application’s state or props change.
+- It’s essentially React’s diffing and updating algorithm that ensures the DOM is updated efficiently with minimal changes.
+
+## How Reconciliation Works
+> React follows these steps when something changes:
+
+### 1. Render Phase
+
+React calls your component functions (or render() in class components) to produce a new Virtual DOM tree based on the updated state/props.
+
+### 2. Diffing (Virtual DOM Comparison)
+
+React compares the new Virtual DOM with the previous Virtual DOM.
+It uses a diffing algorithm with these heuristics:
+Different element types → Replace the entire subtree.
+Same element type → Update attributes/props and recursively compare children.
+Keys in lists → Used to match elements between renders for minimal reordering.
+
+### 3. Commit Phase
+
+React applies the minimal set of changes to the real DOM.
+This is done synchronously to ensure the UI is consistent.
+
+## Key Concepts
+Virtual DOM: A lightweight in-memory representation of the real DOM.
+
+**Keys:** Help React identify which items have changed, been added, or removed in lists.
+Fiber Architecture: React’s internal engine (since React 16) that breaks rendering work into units, allowing interruption for better performance.
