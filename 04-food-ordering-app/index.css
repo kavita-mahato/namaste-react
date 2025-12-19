@@ -8,7 +8,7 @@
 }
 
 body{
-    background-color: rgb(250, 220, 191);
+    background-color: rgb(250, 209, 201);
 }
 .logo-container{
     display: flex;
@@ -23,7 +23,7 @@ body{
     font-family: fantasy;
     color: rgb(253, 85, 18);
     font-weight: 100;
-    padding-left: 5px;
+    padding-left: 10px;
     font-size: 35px;
 }
 
@@ -32,14 +32,18 @@ body{
     list-style-type: none;
     padding: 0px 20px;
     font-size: large;
-    font-weight: bold;
-    font-family: arial, "Helvetica Neue", sans-serif;
-    
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #444;    
 }
 
 .nav-items > ul > li{
     padding: 10px;
     margin: 10px;
+}
+
+.nav-items > ul > li > Link{
+    text-decoration:line-through;
 }
 
 .res-container{
@@ -93,9 +97,9 @@ body{
     padding: 10px;
     border-radius: 15px;
     cursor: pointer;
-    font-family: monospace;
+    font-family: 'Poppins', sans-serif;
     font-weight: bold;
-    color: white;
+    color: rgb(240, 239, 239);
     font-size: 15px;
     background-color: rgb(253, 85, 18);
 }
@@ -135,9 +139,10 @@ body{
     cursor: pointer;
     border-radius: 15px;
     font-size: medium;
-    font-weight: bold;
-    font-family: arial, "Helvetica Neue", sans-serif;
     background-color: rgb(250, 220, 191);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #444; 
 }
 
 .filter{
@@ -150,16 +155,77 @@ body{
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
     font-size: 15px;
-    font-family: monospace;
+    font-family: 'Poppins', sans-serif;
     background-color: rgb(243, 180, 122);
 }
 .search-btn{
     padding: 10px;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
-    font-family: monospace;
+    font-family: 'Poppins', sans-serif;
     font-weight: bold;
-    color: white;
+    color: rgb(240, 239, 239);
     font-size: 15px;
     background-color: rgb(253, 85, 18);
+}
+
+.menu{
+    margin: 20px 50px;
+    padding: 2px 20px;
+}
+.restaurantInfo{
+    padding: 20px 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 12px rgba(22, 22, 22, 0.2);
+    background-color: rgb(252, 201, 155);
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+}
+.infoLine{
+    margin: 3px 0px;
+}
+.menuTxt{
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.category{
+    font-family: 'Poppins', sans-serif;
+    border: 2px solid black;
+    border-radius: 15px;
+    padding: 15px;
+}
+.menuItems{
+    font-family: 'Poppins', sans-serif;
+    margin: 30px 0px;
+    margin-right: 40px;
+}
+.itemsInfo{
+    margin: 30px 0px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    background-color: rgb(252, 201, 155);
+}
+.infoItem{
+    margin: 7px 0px;
+}
+.dishName{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 700;
+    color: #242323;
+    font-size: larger;
+    margin: 8px 0px;
+}
+.itemDes{
+    font-weight: 500;
+    color: #242323;
+}
+.itemImg{
+    border-radius: 15px;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    margin-left: 30px;
 }

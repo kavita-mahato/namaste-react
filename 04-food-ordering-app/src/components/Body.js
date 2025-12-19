@@ -2,6 +2,7 @@ import { resList } from '../utils/constants';
 import { useEffect, useState } from 'react';
 import RestaurantCard from './RestaurantCard';
 import Shimmer from './Shimmer';
+import { RESTAURANT_API } from '../utils/constants';
 
 const Body = () => {
     const [restaurants, setRestaurants] = useState([]);
@@ -13,9 +14,7 @@ const Body = () => {
     }, []);
 
     const fetchData = async() => {
-        const data = await fetch(
-            "https://corsproxy.io/https://www.swiggy.com/dapi/restaurants/list/v5?lat=24.0213922&lng=85.3771192&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-        );
+        const data = await fetch(RESTAURANT_API);
         const json = await data.json();
         setRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
         setFilteredRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
