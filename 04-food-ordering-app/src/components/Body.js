@@ -1,10 +1,11 @@
-import { resList } from '../utils/constants';
 import { useEffect, useState } from 'react';
 import RestaurantCard from './RestaurantCard';
 import Shimmer from './Shimmer';
 import { RESTAURANT_API } from '../utils/constants';
+import { useNavigate } from 'react-router-dom';
 
 const Body = () => {
+    const navigate = useNavigate();
     const [restaurants, setRestaurants] = useState([]);
     const [filteredListOfRestaurant, setFilteredRestaurant] = useState([]);
     const [searchText, setSearchText] = useState("");
@@ -14,10 +15,17 @@ const Body = () => {
     }, []);
 
     const fetchData = async() => {
-        const data = await fetch(RESTAURANT_API);
-        const json = await data.json();
-        setRestaurants(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-        setFilteredRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+        try{
+            const data = await fetch(RESTAURANT_API);
+            const json = await data.json();
+            const restaurantsData = json?.data?.cards?.find((item) => 
+                item?.card?.card?.id?.includes("restaurant_grid_listing_v2"))?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
+            console.log(restaurantsData);
+            setRestaurants(restaurantsData);
+            setFilteredRestaurant(restaurantsData);
+        }catch(err){
+            console.err(err);
+        }
     };
 
     return restaurants.length === 0 ? <Shimmer/> : (
@@ -51,6 +59,9 @@ const Body = () => {
                     <RestaurantCard
                         key={restaurant.info.id}
                         resData={restaurant}
+                        onClick={(e) => {
+                            navigate(`/restaurants/${restaurant.info.id}`);
+                        }}
                     />
                 ))}
             </div>

@@ -23,7 +23,6 @@ const Header = () => {
                     <li><Link to="/">Home</Link></li>
                     <li><Link to="/offers">Offers</Link></li>
                     <li><Link to="/cart">Cart</Link></li>
-                    <li><Link to="/help">Help</Link></li>
                     <li><Link to="/about">About Us</Link></li>
                     <li><Link to="/contact">Contact Us</Link></li>
                     <button className="signin" onClick={() => {
