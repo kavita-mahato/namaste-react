@@ -9,50 +9,99 @@ const Body = () => {
     const navigate = useNavigate();
     const [restaurants, setRestaurants] = useState([]);
     const [filteredListOfRestaurant, setFilteredRestaurant] = useState([]);
-    const [searchText, setSearchText] = useState("");
+    const [searchText, setSearchText] = useState('');
 
     useEffect(() => {
         fetchData();
     }, []);
 
-    const fetchData = async() => {
-        try{
+    const fetchData = async () => {
+        try {
             const data = await fetch(RESTAURANT_API);
             const json = await data.json();
-            const restaurantsData = json?.data?.cards?.find((item) => 
-                item?.card?.card?.id?.includes("restaurant_grid_listing_v2"))?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
+            const restaurantsData =
+                json?.data?.cards?.find((item) =>
+                    item?.card?.card?.id?.includes('restaurant_grid_listing_v2')
+                )?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
             console.log(restaurantsData);
             setRestaurants(restaurantsData);
             setFilteredRestaurant(restaurantsData);
-        }catch(err){
+        } catch (err) {
             console.err(err);
         }
     };
 
     const onlineStatus = useOnlineStatus();
-    if(onlineStatus === false){
+    if (onlineStatus === false) {
         return (
-            <h1>Looks like you are offline! Please Check your internet connection</h1>
+            <h1>
+                Looks like you are offline! Please Check your internet
+                connection
+            </h1>
         );
     }
 
-    return restaurants.length === 0 ? <Shimmer/> : (
-        <div className="body">
-            <div className='filter'>
-                <div className='search'>
-                        <input type='text' className='search-box' value={searchText} onChange={(e) => {
+    return restaurants.length === 0 ? (
+        <Shimmer />
+    ) : (
+        <div className="bg-[rgb(250, 209, 201)]">
+            <div className="flex flex-wrap justify-center">
+                <div className="search">
+                    <input
+                        type="text"
+                        className="
+                        p-2.5
+                        px-5
+                        rounded-tl-[25px]
+                        rounded-bl-[25px]
+                        text-[17px]
+                        font-poppins
+                        bg-[rgb(243,180,122)]
+                        "
+                        value={searchText}
+                        onChange={(e) => {
                             setSearchText(e.target.value);
-                        }}/>
-                        <button className='search-btn' onClick={() => {
+                        }}
+                    />
+                    <button
+                        className="
+                            my-2.5
+                            p-2.5
+                            px-5
+                            rounded-tr-[25px]
+                            rounded-br-[25px]
+                            font-poppins
+                            font-semibold
+                            text-[17px]
+                            text-[rgb(240,239,239)]
+                            bg-[rgb(253,85,18)]
+                            " onClick={() => {
                             console.log(searchText);
                             const filteredRestaurant = restaurants.filter(
-                                (res) => res.info.name.toLowerCase().includes(searchText.toLowerCase()));
+                                (res) =>
+                                    res.info.name
+                                        .toLowerCase()
+                                        .includes(searchText.toLowerCase())
+                            );
                             setFilteredRestaurant(filteredRestaurant);
-                        }}>Search</button>
+                        }}
+                    >
+                        Search
+                    </button>
                 </div>
                 <button
-                    className="filter-btn"
-                    onClick={() => {
+                    className="
+                        m-2.5
+                        p-2.5
+                        px-5
+                        rounded-[25px]
+                        cursor-pointer
+                        font-poppins
+                        font-semibold
+                        text-[17px]
+                        text-[rgb(240,239,239)]
+                        bg-[rgb(253,85,18)]
+                        " onClick={() => {
                         const filteredList = restaurants.filter(
                             (res) => res.info.avgRating > 4.1
                         );
@@ -62,14 +111,14 @@ const Body = () => {
                     Top Rated Restaurant
                 </button>
             </div>
-            <div className="res-container">
+            <div className="flex flex-wrap w-screen justify-center">
                 {filteredListOfRestaurant.map((restaurant) => (
                     <RestaurantCard
                         key={restaurant.info.id}
                         resData={restaurant}
-                        onClick={(e) => {
-                            navigate(`/restaurants/${restaurant.info.id}`);
-                        }}
+                        onClick={() =>
+                            navigate(`/restaurants/${restaurant.info.id}`)
+                        }
                     />
                 ))}
             </div>

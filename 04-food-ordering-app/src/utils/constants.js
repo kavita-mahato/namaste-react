@@ -2,7 +2,7 @@ export const CDN_URL = "https://media-assets.swiggy.com/swiggy/image/upload/fl_l
 
 export const LOGO_URL = "https://tse3.mm.bing.net/th/id/OIP.jeKzXLN65DLkgZw9P5D4PQHaFj?cb=ucfimg2&pid=ImgDet&ucfimg=1&w=176&h=132&c=7&o=7&rm=3";
 
-export const RESTAURANT_API = "https://corsproxy.io/https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.666819&lng=86.1456254&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING";
+export const RESTAURANT_API = "https://corsproxy.io/https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.0974342&lng=72.8744475&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING";
 
 export const resList = [
     {
