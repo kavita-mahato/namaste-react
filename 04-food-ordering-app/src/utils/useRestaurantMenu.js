@@ -4,7 +4,7 @@ import swiggyAPI from './swiggyAPI.json';
 const useRestaurantMenu = (resId) => {
     const [resInfo, setResInfo] = useState(null);
     const [resMenu, setResMenu] = useState([]);
-
+    
     // fetchdata
     useEffect(() => {
         // console.log(swiggyAPI);
@@ -35,7 +35,6 @@ const useRestaurantMenu = (resId) => {
         setResMenu(organanizedmenuData);
 
     }, []);
-    
     return { resInfo, resMenu };
 }
 

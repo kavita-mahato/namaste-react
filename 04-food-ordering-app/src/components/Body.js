@@ -3,6 +3,7 @@ import RestaurantCard from './RestaurantCard';
 import Shimmer from './Shimmer';
 import { RESTAURANT_API } from '../utils/constants';
 import { useNavigate } from 'react-router-dom';
+import useOnlineStatus from '../utils/useOnlineStatus';
 
 const Body = () => {
     const navigate = useNavigate();
@@ -27,6 +28,13 @@ const Body = () => {
             console.err(err);
         }
     };
+
+    const onlineStatus = useOnlineStatus();
+    if(onlineStatus === false){
+        return (
+            <h1>Looks like you are offline! Please Check your internet connection</h1>
+        );
+    }
 
     return restaurants.length === 0 ? <Shimmer/> : (
         <div className="body">
