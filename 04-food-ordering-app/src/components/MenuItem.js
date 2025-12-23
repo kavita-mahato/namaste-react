@@ -15,6 +15,9 @@ const MenuItem = (props) => {
                 bg-[rgb(252,201,155)]
                 font-medium
                 font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif]
+                transition-transform duration-300 ease-in-out
+                hover:scale-[1.025]
+                hover:shadow-[0_8px_12px_rgba(0,0,0,0.2)
                 ">
         <div>    
             <h4 className="my-1.75   font-bold text-[#242323] text-lg font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif]">{name}</h4>

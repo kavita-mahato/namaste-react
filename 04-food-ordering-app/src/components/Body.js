@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import RestaurantCard from './RestaurantCard';
+import RestaurantCard, { withOpenLabel } from './RestaurantCard';
 import Shimmer from './Shimmer';
 import { RESTAURANT_API } from '../utils/constants';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,8 @@ const Body = () => {
     const [restaurants, setRestaurants] = useState([]);
     const [filteredListOfRestaurant, setFilteredRestaurant] = useState([]);
     const [searchText, setSearchText] = useState('');
+
+    const RestaurantCardOpen = withOpenLabel(RestaurantCard);
 
     useEffect(() => {
         fetchData();
@@ -23,13 +25,16 @@ const Body = () => {
                 json?.data?.cards?.find((item) =>
                     item?.card?.card?.id?.includes('restaurant_grid_listing_v2')
                 )?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
+
             console.log(restaurantsData);
             setRestaurants(restaurantsData);
             setFilteredRestaurant(restaurantsData);
         } catch (err) {
-            console.err(err);
+            console.error(err);
         }
     };
+    // console.log(restaurants);
+    // console.log(filteredListOfRestaurant);
 
     const onlineStatus = useOnlineStatus();
     if (onlineStatus === false) {
@@ -75,7 +80,8 @@ const Body = () => {
                             text-[17px]
                             text-[rgb(240,239,239)]
                             bg-[rgb(253,85,18)]
-                            " onClick={() => {
+                            "
+                        onClick={() => {
                             console.log(searchText);
                             const filteredRestaurant = restaurants.filter(
                                 (res) =>
@@ -101,7 +107,8 @@ const Body = () => {
                         text-[17px]
                         text-[rgb(240,239,239)]
                         bg-[rgb(253,85,18)]
-                        " onClick={() => {
+                        "
+                    onClick={() => {
                         const filteredList = restaurants.filter(
                             (res) => res.info.avgRating > 4.1
                         );
@@ -112,15 +119,22 @@ const Body = () => {
                 </button>
             </div>
             <div className="flex flex-wrap w-screen justify-center">
-                {filteredListOfRestaurant.map((restaurant) => (
-                    <RestaurantCard
-                        key={restaurant.info.id}
-                        resData={restaurant}
-                        onClick={() =>
-                            navigate(`/restaurants/${restaurant.info.id}`)
-                        }
-                    />
-                ))}
+                {filteredListOfRestaurant.map((restaurant) => {
+                    const { id } = restaurant.info;
+                    return restaurant.info.isOpen ? (
+                        <RestaurantCardOpen
+                            key={id}
+                            resData={restaurant}
+                            onClick={() => navigate(`/restaurants/${id}`)}
+                        />
+                    ) : (
+                        <RestaurantCard
+                            key={id}
+                            resData={restaurant}
+                            onClick={() => navigate(`/restaurants/${id}`)}
+                        />
+                    );
+                })}
             </div>
         </div>
     );
