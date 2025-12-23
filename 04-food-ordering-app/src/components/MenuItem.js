@@ -1,9 +1,9 @@
-const MenuItem = (props) => {
+const MenuItem = ({ menuInfo }) => {
     // console.log(props);
 
     const RESTAURANT_MENU_IMG = "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/";
 
-    const {name, price, description, imageId, ratings} = props.menuInfo;
+    const {name, price, description, imageId, ratings} = menuInfo || {};
     return <li className="
                 my-7.5
                 flex

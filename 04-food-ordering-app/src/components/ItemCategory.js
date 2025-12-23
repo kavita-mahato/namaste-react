@@ -1,13 +1,10 @@
 import { useState } from "react";
 import MenuItem from "./MenuItem";
 
-const ItemCategory = (props) => {
+const ItemCategory = ({ data, showItems,  toggleCategory }) => {
     // console.log(props);
-    const {title, itemCards} = props?.data;
-    const [showItems, setShowItems] = useState(false);
-    const handleClick = () => {
-        setShowItems(!showItems);
-    }
+    const { title, itemCards } = data;
+    
     return(
         <div className="bg-gray-100 flex-col justify-center">
             <div className="
@@ -21,7 +18,7 @@ const ItemCategory = (props) => {
             font-semibold
             p-3.75 my-7
             cursor-pointer
-            " onClick={handleClick} >
+            " onClick={toggleCategory}>
                 <span>{title} ({(itemCards?.length)})</span>
                 <img 
                     width="48" height="48" 
@@ -29,19 +26,18 @@ const ItemCategory = (props) => {
                     className={`transition-transform duration-300 ${showItems ? "rotate-180" : "rotate-0"}`}
                 />
             </div>
-            <ul className="
-            font-poppins
-            ">
-                {
-                    showItems && 
-                    itemCards.map((item, index) => (
-                        <MenuItem 
-                            key={item?.card?.info?.id || `item-${index}`} 
-                            menuInfo={item?.card?.info}
-                        />
-                    ))
-                }
-            </ul>
+            {showItems && (
+                <ul className="font-poppins">
+                    {     
+                        itemCards.map((item, index) => (
+                            <MenuItem 
+                                key={item?.card?.info?.id || `item-${index}`} 
+                                menuInfo={item?.card?.info}
+                            />
+                        ))
+                    }
+                </ul>
+            )}
         </div>
     )
 }
