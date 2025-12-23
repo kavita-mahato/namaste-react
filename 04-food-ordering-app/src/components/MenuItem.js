@@ -10,24 +10,24 @@ const MenuItem = (props) => {
                 justify-between
                 py-5
                 px-7.5
-                rounded-[15px]
-                shadow-[0_8px_12px_rgba(0,0,0,0.2)]
-                bg-[rgb(252,201,155)]
+                shadow-[0_8px_10px_-6px_rgba(0,0,0,0.25)]
                 font-medium
                 font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif]
-                transition-transform duration-300 ease-in-out
-                hover:scale-[1.025]
-                hover:shadow-[0_8px_12px_rgba(0,0,0,0.2)
                 ">
         <div>    
             <h4 className="my-1.75   font-bold text-[#242323] text-lg font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif]">{name}</h4>
-            <p className="my-1.75">Rs.{(price/100)?.toFixed(2)}/_ only</p>
+            <p className="my-1.75">₹{(price/100)?.toFixed(2)}/_ only</p>
             {ratings.aggregatedRating.rating && 
             <p className="my-1.75">{ratings.aggregatedRating.rating}⭐({ratings.aggregatedRating.ratingCountV2})</p>}
-            <p className="my-1.75 font-medium text-[#242323]">{description}</p>
+            <p className="my-1.75 font-medium text-[#242323] pr-10">{description}</p>
         </div>
         <div>
-            {imageId && <img className="rounded-[15px] shadow-[0_8px_12px_rgba(0,0,0,0.2)] ml-7.5" src={RESTAURANT_MENU_IMG + imageId}/>} 
+            {imageId && 
+                <img 
+                    className="rounded-[15px] shadow-[0_8px_12px_rgba(0,0,0,0.2)] w-30%" 
+                    src={RESTAURANT_MENU_IMG + imageId}
+                />
+            } 
         </div>
     </li>;
 }

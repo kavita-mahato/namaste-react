@@ -19,7 +19,7 @@ const Header = () => {
                     my-4
                     mx-6 shadow-lg">
             <div className="flex items-center">
-                <img className="w-20 ml-5 my-2 mr-2 rounded-full" src={LOGO_URL} />
+                <img className="w-15 ml-5 my-2 mr-2 rounded-full" src={LOGO_URL} />
                 <h1 className='font-fantasy text-3xl font-bold'>FOODIE</h1>
             </div>
             <div className="nav-items">

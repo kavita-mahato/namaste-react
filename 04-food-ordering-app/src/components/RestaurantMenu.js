@@ -16,11 +16,10 @@ const RestaurantMenu = () => {
         <div className="my-5 mx-12.5 py-0.5 px-5">
             <h1 className='text-4xl font-bold mx-2 my-2'>{name}</h1>
             <div className="
-                py-5
-                px-7.5
+                py-5 px-7.5 mb-7
                 rounded-[15px]
                 shadow-[0_8px_12px_rgba(22,22,22,0.2)]
-                bg-[rgb(252,201,155)]
+                bg-gray-100
                 font-medium
                 font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif]
                 transition-transform duration-300 ease-in-out
@@ -39,7 +38,12 @@ const RestaurantMenu = () => {
             font-['Lucida_Sans','Lucida_Sans_Regular','Lucida_Grande','Lucida_Sans_Unicode',Geneva,Verdana,sans-serif]
             ">~~~ Menu ~~~</h3>
             {
-                resMenu?.map((category, index) => <ItemCategory key={category.categoryId || `category-${index}`} data={category}/>)
+                resMenu?.map((category, index) => (
+                <ItemCategory 
+                    key={category.categoryId || `category-${index}`} 
+                    data={category} 
+                    showItems={true}
+                />))
             }
             
         </div>
