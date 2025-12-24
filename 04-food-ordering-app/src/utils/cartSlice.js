@@ -13,7 +13,9 @@ const cartSlice = createSlice({
             state.items.pop(action.payload);
         },
         clearCart: (state) => {
-            state.items.length = 0;
+            // Either mutate existing state or return a new state
+            // state.items.length = 0;
+            return { items: [] }; // this new object will be replaced by original one
         }
     }
 });
