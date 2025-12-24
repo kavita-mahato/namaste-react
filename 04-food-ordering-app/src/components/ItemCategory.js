@@ -6,14 +6,14 @@ const ItemCategory = ({ data, showItems,  toggleCategory }) => {
     const { title, itemCards } = data;
     
     return(
-        <div className="bg-gray-100 flex-col justify-center">
+        <div className="bg-gray-100 flex-col justify-center w-10/12 mx-auto">
             <div className="
             bg-gray-100
             shadow-lg 
             font-poppins
             border-b-3
             border-black
-            flex justify-between
+            flex justify-between 
             text-3xl
             font-semibold
             p-3.75 my-7

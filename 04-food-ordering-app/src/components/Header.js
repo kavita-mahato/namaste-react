@@ -3,12 +3,17 @@ import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import UserContext from '../utils/UserContext';
 import { FaHome, FaShoppingCart, FaShoppingBasket, FaInfoCircle, FaEnvelope, FaSignOutAlt } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
     const [btnName, setBtnName] = useState('Sign In');
 
     const {loggedInUser} = useContext(UserContext);
     console.log(loggedInUser);
+
+    // Subscribing to the store using a Selector
+    const cartItems = useSelector((store) => store.cart.items);
+    console.log(cartItems);
 
     return (
         <div className="flex
@@ -32,7 +37,7 @@ const Header = () => {
                     </li>
                     <li className="p-2.5 m-2.5">
                         <Link to="/cart" className="flex items-center gap-2">
-                            <FaShoppingCart /> Cart
+                            <FaShoppingCart /> Cart({cartItems.length})
                         </Link>
                     </li>
                     <li className="p-2.5 m-2.5">
