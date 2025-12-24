@@ -1,13 +1,14 @@
 import { LOGO_URL } from '../utils/constants';
-import { useState, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import UserContext from '../utils/UserContext';
+import { FaHome, FaShoppingCart, FaShoppingBasket, FaInfoCircle, FaEnvelope, FaSignOutAlt } from 'react-icons/fa';
 
 const Header = () => {
     const [btnName, setBtnName] = useState('Sign In');
 
-    useEffect(() => {
-        console.log('useEffect called');
-    }, [btnName]);
+    const {loggedInUser} = useContext(UserContext);
+    console.log(loggedInUser);
 
     return (
         <div className="flex
@@ -25,33 +26,41 @@ const Header = () => {
             <div className="nav-items">
                 <ul className='flex list-none px-5 text-lg font-semibold text-[#444] font-poppins'>
                     <li className="p-2.5 m-2.5">
-                        <Link to="/">Home</Link>
+                        <Link to="/" className="flex items-center gap-2">
+                            <FaHome /> Home
+                        </Link>
                     </li>
                     <li className="p-2.5 m-2.5">
-                        <Link to="/offers">Offers</Link>
+                        <Link to="/cart" className="flex items-center gap-2">
+                            <FaShoppingCart /> Cart
+                        </Link>
                     </li>
                     <li className="p-2.5 m-2.5">
-                        <Link to="/cart">Cart</Link>
+                        <Link to="/grocery" className="flex items-center gap-2">
+                            <FaShoppingBasket /> Grocery
+                        </Link>
                     </li>
                     <li className="p-2.5 m-2.5">
-                        <Link to="/about">About Us</Link>
+                        <Link to="/about" className="flex items-center gap-2">
+                            <FaInfoCircle /> About Us
+                        </Link>
                     </li>
                     <li className="p-2.5 m-2.5">
-                        <Link to="/contact">Contact Us</Link>
-                    </li>
-                    <li className="p-2.5 m-2.5">
-                        <Link to="/grocery">Grocery</Link>
+                        <Link to="/contact" className="flex items-center gap-2">
+                            <FaEnvelope /> Contact Us
+                        </Link>
                     </li>
                     <button
-                        className="px-2 cursor-pointer"
+                        className="px-2 cursor-pointer flex items-center gap-2"
                         onClick={() => {
                             btnName === 'Sign In'
                                 ? setBtnName('Sign Out')
                                 : setBtnName('Sign In');
                         }}
                     >
-                        {btnName}
+                        <FaSignOutAlt /> {btnName}
                     </button>
+                    <li className='py-2.5 px-2 my-2.5 mx-2 font-semibold'>{loggedInUser}</li>
                 </ul>
             </div>
         </div>
