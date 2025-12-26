@@ -4,6 +4,7 @@
   "description": "This is Namaste React by Akshay Saini",
   "scripts": {
     "test": "jest",
+    "watch-test": "jest --watch",
     "start": "parcel index.html",
     "build": "parcel build index.html"
   },
@@ -18,6 +19,7 @@
     "@babel/core": "^7.28.5",
     "@babel/preset-env": "^7.28.5",
     "@babel/preset-react": "^7.28.5",
+    "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.1",
     "babel-jest": "^30.2.0",
     "jest": "^30.2.0",

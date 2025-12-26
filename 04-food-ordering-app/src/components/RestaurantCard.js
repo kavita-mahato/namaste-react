@@ -13,6 +13,7 @@ const RestaurantCard = ({ resData, onClick }) => {
   return (
     <div
       onClick={onClick}
+      data-testid="resCard"
       className="
         w-80 bg-white rounded-2xl overflow-hidden
         shadow-sm border border-gray-200
