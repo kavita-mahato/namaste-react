@@ -13,8 +13,6 @@ const User = (props) => {
                 "https://api.github.com/users/kavita-mahato"
             );
             const json = await response.json();
-
-            console.log(json);
             setUserInfo(json);
         } catch (error) {
             console.error("Error while fetching user data: ", error);

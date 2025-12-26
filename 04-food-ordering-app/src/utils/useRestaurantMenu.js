@@ -7,7 +7,6 @@ const useRestaurantMenu = (resId) => {
     
     // fetchdata
     useEffect(() => {
-        // console.log(swiggyAPI);
         const menuData = swiggyAPI?.data?.cards
             ?.find((obj) => obj?.groupedCard)
             ?.groupedCard?.cardGroupMap?.REGULAR?.cards?.filter(obj => 

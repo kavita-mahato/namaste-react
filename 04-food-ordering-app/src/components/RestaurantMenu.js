@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import Shimmer from "./Shimmer";
+import MenuShimmer from "./MenuShimmer";
 import ItemCategory from "./ItemCategory";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
 
@@ -18,7 +18,7 @@ const RestaurantMenu = () => {
     areaName,
   } = resInfo?.card?.card?.info || {};
 
-  if (!resInfo) return <Shimmer />;
+  if (!resInfo) return <MenuShimmer />;
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">

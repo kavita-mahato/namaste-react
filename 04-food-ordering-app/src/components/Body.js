@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import RestaurantCard from './RestaurantCard';
 import Shimmer from './Shimmer';
 import { RESTAURANT_API } from '../utils/constants';
-import { useNavigate } from 'react-router-dom';
 import useOnlineStatus from '../utils/useOnlineStatus';
+
 import { IoClose } from "react-icons/io5";
+import { MdWifiOff } from "react-icons/md";
 
 const Body = () => {
     const navigate = useNavigate();
     const [restaurants, setRestaurants] = useState([]);
     const [filteredListOfRestaurant, setFilteredRestaurant] = useState([]);
     const [searchText, setSearchText] = useState('');
-
-    // const RestaurantCardOpen = withOpenLabel(RestaurantCard);
 
     useEffect(() => {
         fetchData();
@@ -27,24 +28,39 @@ const Body = () => {
                     item?.card?.card?.id?.includes('restaurant_grid_listing_v2')
                 )?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
 
-            console.log(restaurantsData);
             setRestaurants(restaurantsData);
             setFilteredRestaurant(restaurantsData);
         } catch (err) {
             console.error(err);
         }
     };
-    // console.log(restaurants);
-    // console.log(filteredListOfRestaurant);
 
     const onlineStatus = useOnlineStatus();
+
     if (onlineStatus === false) {
-        return (
-            <h1>
-                Looks like you are offline! Please Check your internet
-                connection
-            </h1>
-        );
+    return (
+        <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 bg-[rgb(250,209,201)]">
+        
+        {/* Icon */}
+        <MdWifiOff size={72} className="text-gray-700 mb-4" />
+
+        {/* Title */}
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            You’re Offline
+        </h1>
+
+        {/* Message */}
+        <p className="text-gray-700 max-w-md mb-6">
+            Looks like your internet connection is unavailable.
+            Please check your network and try again.
+        </p>
+
+        {/* Sub text */}
+        <p className="text-sm text-gray-500">
+            We’ll automatically reconnect once you’re back online.
+        </p>
+        </div>
+    );
     }
 
     return restaurants.length === 0 ? (
@@ -58,6 +74,7 @@ const Body = () => {
                 <div className="relative flex-1 w-full">
                 <input
                     type="text"
+                    data-testid="searchInput"
                     placeholder="Search restaurants by name..."
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
@@ -136,6 +153,8 @@ const Body = () => {
                 </button>
             </div>
             </div>
+
+            {/* Restaurant Cards Container */}
             <div className="flex flex-wrap w-screen justify-center gap-10">
                 {filteredListOfRestaurant.map((restaurant) => {
                     const { id } = restaurant.info;
@@ -148,6 +167,8 @@ const Body = () => {
                     );
                 })}
             </div>
+
+            {/* Footer */}
             <div className="my-10 text-center text-gray-500 text-l">
                 © 2025 FOODIE. All rights reserved.
             </div>

@@ -67,7 +67,7 @@ const MenuItem = ({ menuInfo }) => {
               transition
             "
           >
-            ADD+
+            ADD
           </button>
         </div>
       )}
