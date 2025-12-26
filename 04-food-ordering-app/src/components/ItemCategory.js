@@ -1,45 +1,54 @@
-import { useState } from "react";
 import MenuItem from "./MenuItem";
+import { IoChevronDown } from "react-icons/io5";
 
-const ItemCategory = ({ data, showItems,  toggleCategory }) => {
-    // console.log(props);
-    const { title, itemCards } = data;
-    
-    return(
-        <div className="bg-gray-100 flex-col justify-center w-10/12 mx-auto">
-            <div className="
-            bg-gray-100
-            shadow-lg 
-            font-poppins
-            border-b-3
-            border-black
-            flex justify-between 
-            text-3xl
-            font-semibold
-            p-3.75 my-7
-            cursor-pointer
-            " onClick={toggleCategory}>
-                <span>{title} ({(itemCards?.length)})</span>
-                <img 
-                    width="48" height="48" 
-                    src="https://img.icons8.com/sf-regular-filled/48/circled-chevron-up.png" alt="circled-chevron-up" 
-                    className={`transition-transform duration-300 ${showItems ? "rotate-180" : "rotate-0"}`}
-                />
-            </div>
-            {showItems && (
-                <ul className="font-poppins">
-                    {     
-                        itemCards.map((item, index) => (
-                            <MenuItem 
-                                key={item?.card?.info?.id || `item-${index}`} 
-                                menuInfo={item?.card?.info}
-                            />
-                        ))
-                    }
-                </ul>
-            )}
-        </div>
-    )
-}
+const ItemCategory = ({ data, showItems, toggleCategory }) => {
+  const { title, itemCards } = data;
+
+  return (
+    <div className="max-w-4xl mx-auto mb-6">
+
+      {/* Category Header */}
+      <div
+        className="
+          flex justify-between items-center
+          bg-gray-100
+          px-6 py-4
+          rounded-xl
+          cursor-pointer
+          shadow-sm
+          hover:shadow-md
+          transition
+        "
+        onClick={toggleCategory}
+      >
+        <h3 className="text-lg font-semibold text-gray-900">
+          {title}
+          <span className="text-gray-500 font-normal">
+            {" "}({itemCards?.length})
+          </span>
+        </h3>
+
+        <IoChevronDown
+          size={22}
+          className={`transition-transform duration-300 ${
+            showItems ? "rotate-180" : "rotate-0"
+          }`}
+        />
+      </div>
+
+      {/* Items */}
+      {showItems && (
+        <ul className="mt-4 space-y-2">
+          {itemCards.map((item, index) => (
+            <MenuItem
+              key={item?.card?.info?.id || index}
+              menuInfo={item?.card?.info}
+            />
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
 
 export default ItemCategory;

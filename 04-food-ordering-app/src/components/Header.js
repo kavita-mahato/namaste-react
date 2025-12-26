@@ -18,12 +18,11 @@ const Header = () => {
     return (
         <div className="flex
                     justify-between 
-                    border-4 
-                    border-orange-500 
-                    rounded-2xl 
                     bg-orange-200
-                    my-4
-                    mx-6 shadow-lg">
+                    py-2
+                    shadow-[0_8px_10px_-6px_rgba(0,0,0,0.25)]
+                    sticky top-0 z-50
+                    ">
             <div className="flex items-center">
                 <img className="w-15 ml-5 my-2 mr-2 rounded-full" src={LOGO_URL} />
                 <h1 className='font-fantasy text-3xl font-bold'>FOODIE</h1>
@@ -63,7 +62,9 @@ const Header = () => {
                                 : setBtnName('Sign In');
                         }}
                     >
+                        <Link to="/signin" className='flex items-center gap-2'>
                         <FaSignOutAlt /> {btnName}
+                        </Link>
                     </button>
                     <li className='py-2.5 px-2 my-2.5 mx-2 font-semibold'>{loggedInUser}</li>
                 </ul>

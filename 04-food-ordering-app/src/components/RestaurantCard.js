@@ -1,53 +1,64 @@
 import { CDN_URL } from "../utils/constants";
 
-const RestaurantCard = (props) => {
-    const { resData, onClick } = props;
-    const { cloudinaryImageId, name, avgRating, cuisines, costForTwo, sla } = resData?.info;
-    return (
-        <div className="
-        w-82.5 h-115
-        flex flex-col
-        overflow-hidden
-        border border-neutral-700
-        p-2
-        font-segoe font-bold
-        text-[#242323]
-        rounded-[20px]
-        m-[15px_20px]
-        transition-transform duration-300 ease-in-out
+const RestaurantCard = ({ resData, onClick }) => {
+  const {
+    cloudinaryImageId,
+    name,
+    avgRating,
+    cuisines,
+    costForTwo,
+    sla,
+  } = resData?.info || {};
+
+  return (
+    <div
+      onClick={onClick}
+      className="
+        w-80 bg-white rounded-2xl overflow-hidden
+        shadow-sm border border-gray-200
+        transition-all duration-300
         cursor-pointer
-        hover:border-black
-        hover:scale-[1.025]
-        hover:shadow-[0_8px_12px_rgba(0,0,0,0.2)]" style={{ backgroundColor: '#fff5efff' }} onClick={onClick}>
-            <div className="h-[50%]">   
-                <img
-                    className="w-full h-full object-cover rounded-[20px]"
-                    src={CDN_URL + cloudinaryImageId}
-                    alt="Restaurant Image"
-                />
-            </div>
-            <div className="mx-2.5">
-                <h3 className="my-1.5 text-[150%]">{name}</h3>
-                <h4 className="my-1 text-[100%] font-normal">{cuisines.join(", ")}</h4>
-                <h4 className="my-1 text-[100%] font-normal">{avgRating}</h4>
-                <h4 className="my-1 text-[100%] font-normal">{costForTwo}</h4>
-                <h4 className="my-1 text-[100%] font-normal">{sla.deliveryTime} Minutes</h4>
-            </div>
+        hover:shadow-xl hover:scale-[1.03]
+      "
+    >
+      {/* Image */}
+      <div className="relative h-48 overflow-hidden">
+        <img
+          src={CDN_URL + cloudinaryImageId}
+          alt={name}
+          className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+        />
+
+        {/* Rating Badge */}
+        {avgRating && (
+          <span
+            className={`absolute bottom-3 left-3 px-3 py-1 rounded-lg text-sm font-semibold text-white
+              ${avgRating >= 4 ? "bg-green-600" : "bg-yellow-500"}`}
+          >
+            ⭐ {avgRating}
+          </span>
+        )}
+      </div>
+
+      {/* Content */}
+      <div className="p-4 space-y-1">
+        <h3 className="text-lg font-bold text-gray-800 truncate">
+          {name}
+        </h3>
+
+        <p className="text-sm text-gray-600 truncate">
+          {cuisines?.join(", ")}
+        </p>
+
+        <div className="flex justify-between text-sm text-gray-600 mt-2">
+          <span>{costForTwo}</span>
+          <span>{sla?.deliveryTime} mins</span>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
-export const withOpenLabel = (RestaurantCard) => {
-    return (props) => {
-        return (
-            <div className="relative">
-                <label className="absolute top-2 left-2 bg-green-600 text-white px-3 pt-0.75 pb-1 rounded-2xl text-sm font-semibold z-10">
-                    Open
-                </label>
-                <RestaurantCard {...props} />
-            </div>
-        );
-    };
-};
+
 
 export default RestaurantCard;

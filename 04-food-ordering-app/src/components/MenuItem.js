@@ -2,55 +2,77 @@ import { useDispatch } from "react-redux";
 import { addItem } from "../utils/cartSlice";
 
 const MenuItem = ({ menuInfo }) => {
+  const RESTAURANT_MENU_IMG =
+    "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/";
 
-    const RESTAURANT_MENU_IMG = "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/";
+  const { name, price, description, imageId, ratings } = menuInfo || {};
+  const dispatch = useDispatch();
 
-    const {name, price, description, imageId, ratings} = menuInfo || {};
+  return (
+    <li
+      className="
+        flex justify-between gap-6
+        p-6 mb-6
+        bg-white
+        rounded-xl
+        shadow-sm
+        hover:shadow-md
+        transition
+      "
+    >
+      {/* Left Content */}
+      <div className="flex-1">
+        <h4 className="text-lg font-semibold text-gray-900 mb-1">
+          {name}
+        </h4>
 
-    const dispatch = useDispatch();
-    const handleAddItem = () => {
-        // Dispatch an action
-        dispatch(addItem(menuInfo));
-    }
+        <p className="text-gray-700 font-medium mb-1">
+          ₹{price ? (price / 100).toFixed(2) : "—"}
+        </p>
 
-    return <li className="
-                my-7.5
-                flex justify-between
-                py-5 px-7.5
-                shadow-[0_8px_10px_-6px_rgba(0,0,0,0.25)]
-                font-medium
-                font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif]
-                ">
-        <div>    
-            <h4 className="my-1.75   font-bold text-[#242323] text-lg font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif]">{name}</h4>
-            <p className="my-1.75">₹{(price/100)?.toFixed(2)}/_ only</p>
-            {ratings?.aggregatedRating?.rating && 
-            <p className="my-1.75">{ratings.aggregatedRating.rating}⭐({ratings.aggregatedRating.ratingCountV2})</p>}
-            <p className="my-1.75 font-medium text-[#242323] pr-10">{description}</p>
+        {ratings?.aggregatedRating?.rating && (
+          <span className="inline-block text-sm text-green-700 font-semibold mb-2">
+            ⭐ {ratings.aggregatedRating.rating}
+            <span className="text-gray-500 font-normal">
+              {" "}
+              ({ratings.aggregatedRating.ratingCountV2})
+            </span>
+          </span>
+        )}
+
+        <p className="text-sm text-gray-600 leading-relaxed pr-6">
+          {description}
+        </p>
+      </div>
+
+      {/* Right Image */}
+      {imageId && (
+        <div className="relative w-36 shrink-0">
+          <img
+            src={RESTAURANT_MENU_IMG + imageId}
+            alt={name}
+            className="w-full h-32 object-cover rounded-xl"
+          />
+
+          <button
+            onClick={() => dispatch(addItem(menuInfo))}
+            className="
+              absolute -bottom-3 left-1/2 -translate-x-1/2
+              bg-white text-green-600
+              px-6 py-1
+              rounded-lg
+              font-bold text-sm
+              shadow-md
+              hover:bg-green-600 hover:text-white
+              transition
+            "
+          >
+            ADD+
+          </button>
         </div>
-        <div>
-            {imageId && 
-                <div className="relative">
-                    <img 
-                        className="rounded-[15px] shadow-[0_8px_12px_rgba(0,0,0,0.2)] w-30%" 
-                        src={RESTAURANT_MENU_IMG + imageId}
-                    />
-                    <button
-                        onClick={handleAddItem}
-                        className="
-                        absolute -bottom-3 left-1/2 -translate-x-1/2
-                        bg-white text-green-600 font-bold
-                        px-6 py-1 rounded-lg
-                        shadow-md hover:shadow-lg
-                        cursor-pointer
-                        "
-                    >
-                        ADD +
-                    </button>
-                </div>
-            } 
-        </div>
-    </li>;
-}
+      )}
+    </li>
+  );
+};
 
 export default MenuItem;

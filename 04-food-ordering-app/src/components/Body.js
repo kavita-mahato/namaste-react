@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import RestaurantCard, { withOpenLabel } from './RestaurantCard';
+import RestaurantCard from './RestaurantCard';
 import Shimmer from './Shimmer';
 import { RESTAURANT_API } from '../utils/constants';
 import { useNavigate } from 'react-router-dom';
 import useOnlineStatus from '../utils/useOnlineStatus';
+import { IoClose } from "react-icons/io5";
 
 const Body = () => {
     const navigate = useNavigate();
@@ -11,7 +12,7 @@ const Body = () => {
     const [filteredListOfRestaurant, setFilteredRestaurant] = useState([]);
     const [searchText, setSearchText] = useState('');
 
-    const RestaurantCardOpen = withOpenLabel(RestaurantCard);
+    // const RestaurantCardOpen = withOpenLabel(RestaurantCard);
 
     useEffect(() => {
         fetchData();
@@ -50,84 +51,95 @@ const Body = () => {
         <Shimmer />
     ) : (
         <div className="bg-[rgb(250, 209, 201)]">
-            <div className="flex flex-wrap justify-center">
-                <div className="search">
-                    <input
-                        type="text"
-                        className="
-                        p-2.5
-                        px-5
-                        rounded-tl-[25px]
-                        rounded-bl-[25px]
-                        text-[17px]
-                        font-poppins
-                        bg-[rgb(243,180,122)]
-                        "
-                        value={searchText}
-                        onChange={(e) => {
-                            setSearchText(e.target.value);
-                        }}
-                    />
-                    <button
-                        className="
-                            my-2.5
-                            p-2.5
-                            px-5
-                            rounded-tr-[25px]
-                            rounded-br-[25px]
-                            font-poppins
-                            font-semibold
-                            text-[17px]
-                            text-[rgb(240,239,239)]
-                            bg-[rgb(253,85,18)]
-                            "
-                        onClick={() => {
-                            console.log(searchText);
-                            const filteredRestaurant = restaurants.filter(
-                                (res) =>
-                                    res.info.name
-                                        .toLowerCase()
-                                        .includes(searchText.toLowerCase())
-                            );
-                            setFilteredRestaurant(filteredRestaurant);
-                        }}
-                    >
-                        Search
-                    </button>
-                </div>
-                <button
+            <div className="max-w-5xl mx-auto my-8 px-4">
+            <div className="flex flex-col sm:flex-row items-center gap-4">
+
+                {/* Search Input Wrapper */}
+                <div className="relative flex-1 w-full">
+                <input
+                    type="text"
+                    placeholder="Search restaurants by name..."
+                    value={searchText}
+                    onChange={(e) => setSearchText(e.target.value)}
                     className="
-                        m-2.5
-                        p-2.5
-                        px-5
-                        rounded-[25px]
-                        cursor-pointer
-                        font-poppins
-                        font-semibold
-                        text-[17px]
-                        text-[rgb(240,239,239)]
-                        bg-[rgb(253,85,18)]
-                        "
+                    w-full
+                    px-4 py-3 pr-10
+                    text-gray-700 text-[16px]
+                    border border-gray-300
+                    rounded-lg
+                    shadow-sm
+                    focus:outline-none
+                    focus:ring-2 focus:ring-orange-400
+                    focus:border-orange-400
+                    "
+                />
+
+                {/* Clear (X) Icon */}
+                {searchText && (
+                    <button
                     onClick={() => {
-                        const filteredList = restaurants.filter(
-                            (res) => res.info.avgRating > 4.1
-                        );
-                        setFilteredRestaurant(filteredList);
+                        setSearchText("");
+                        setFilteredRestaurant(restaurants);
                     }}
+                    className="
+                        absolute right-3 top-1/2 -translate-y-1/2
+                        text-gray-400
+                        hover:text-gray-700
+                        transition
+                    "
+                    aria-label="Clear search"
+                    >
+                    <IoClose size={18} />
+                    </button>
+                )}
+                </div>
+
+                {/* Search Button */}
+                <button
+                className="
+                    px-6 py-3
+                    bg-gray-900 text-white
+                    rounded-lg
+                    font-medium
+                    hover:bg-gray-800
+                    transition-colors
+                "
+                onClick={() => {
+                    const filteredRestaurant = restaurants.filter((res) =>
+                    res.info.name.toLowerCase().includes(searchText.toLowerCase())
+                    );
+                    setFilteredRestaurant(filteredRestaurant);
+                }}
                 >
-                    Top Rated Restaurant
+                Search
+                </button>
+
+                {/* Top Rated Button */}
+                <button
+                className="
+                    px-6 py-3
+                    border border-gray-900
+                    text-gray-900
+                    rounded-lg
+                    font-medium
+                    hover:bg-gray-900 hover:text-white
+                    transition-colors
+                "
+                onClick={() => {
+                    const filteredList = restaurants.filter(
+                    (res) => res.info.avgRating > 4.1
+                    );
+                    setFilteredRestaurant(filteredList);
+                }}
+                >
+                Top Rated
                 </button>
             </div>
-            <div className="flex flex-wrap w-screen justify-center">
+            </div>
+            <div className="flex flex-wrap w-screen justify-center gap-10">
                 {filteredListOfRestaurant.map((restaurant) => {
                     const { id } = restaurant.info;
-                    return restaurant.info.isOpen ? (
-                        <RestaurantCardOpen
-                            key={id}
-                            resData={restaurant}
-                            onClick={() => navigate(`/restaurants/${id}`)}
-                        />
-                    ) : (
+                    return (
                         <RestaurantCard
                             key={id}
                             resData={restaurant}
@@ -135,6 +147,9 @@ const Body = () => {
                         />
                     );
                 })}
+            </div>
+            <div className="my-10 text-center text-gray-500 text-l">
+                © 2025 FOODIE. All rights reserved.
             </div>
         </div>
     );

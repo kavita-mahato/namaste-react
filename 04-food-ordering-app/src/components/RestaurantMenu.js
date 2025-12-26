@@ -1,58 +1,84 @@
-import { useParams } from 'react-router-dom';
-import { useState } from 'react';
-import Shimmer from './Shimmer';
-import ItemCategory from './ItemCategory';
-import useRestaurantMenu from '../utils/useRestaurantMenu';
+import { useParams } from "react-router-dom";
+import { useState } from "react";
+import Shimmer from "./Shimmer";
+import ItemCategory from "./ItemCategory";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
 
 const RestaurantMenu = () => {
-    const { resId } = useParams();
-    const { resInfo, resMenu } = useRestaurantMenu(resId);
-    const [openIndex, setOpenIndex] = useState(0);
-    // console.log(resId);
+  const { resId } = useParams();
+  const { resInfo, resMenu } = useRestaurantMenu(resId);
+  const [openIndex, setOpenIndex] = useState(0);
 
-    const {name, cuisines, costForTwoMessage, categoryId, avgRating, sla, areaName} = resInfo?.card?.card?.info || {};
+  const {
+    name,
+    cuisines,
+    costForTwoMessage,
+    avgRating,
+    sla,
+    areaName,
+  } = resInfo?.card?.card?.info || {};
 
-    return resInfo === null ? (
-        <Shimmer />
-    ) : (
-        <div className="my-5 mx-12.5 py-0.5 px-5">
-            <h1 className='text-4xl font-bold mx-2 my-2'>{name}</h1>
-            <div className="
-                py-5 px-7.5 mb-7
-                rounded-[15px]
-                shadow-[0_8px_12px_rgba(22,22,22,0.2)]
-                bg-gray-100
-                font-medium
-                font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif]
-                transition-transform duration-300 ease-in-out
-                hover:scale-[1.025]
-                hover:shadow-[0_8px_12px_rgba(0,0,0,0.2)
-                ">
-                <p className="my-0.75">
-                    {cuisines.join(", ")} - {costForTwoMessage}
-                </p>
-                <p className="my-0.75">{avgRating}⭐</p>
-                <p className="my-0.75">Outlet: {areaName}</p>
-                <p className="my-0.75">{sla.minDeliveryTime}-{sla.maxDeliveryTime} mins</p>
-            </div>
-            <h3 className="
-            text-center
-            font-['Lucida_Sans','Lucida_Sans_Regular','Lucida_Grande','Lucida_Sans_Unicode',Geneva,Verdana,sans-serif]
-            ">~~~ Menu ~~~</h3>
-            {
-                resMenu?.map((category, index) => (
-                <ItemCategory 
-                    key={category.categoryId || index} 
-                    data={category} 
-                    showItems={index === openIndex}
-                    toggleCategory={() =>
-                        setOpenIndex(openIndex === index ? null : index)
-                    }
-                />))
-            }
-            
+  if (!resInfo) return <Shimmer />;
+
+  return (
+    <div className="max-w-5xl mx-auto px-4 py-8">
+
+      {/* Restaurant Name */}
+      <h1 className="text-4xl font-extrabold text-gray-900 mb-4">
+        {name}
+      </h1>
+
+      {/* Restaurant Info Card */}
+      <div
+        className="
+          bg-white
+          rounded-2xl
+          shadow-md
+          p-6
+          mb-8
+          transition
+          hover:shadow-lg
+        "
+      >
+        <p className="text-gray-700 font-medium mb-2">
+          {cuisines?.join(", ")} • {costForTwoMessage}
+        </p>
+
+        <div className="flex flex-wrap items-center gap-4 text-gray-600 text-sm">
+          <span className="font-semibold text-green-600">
+            ⭐ {avgRating}
+          </span>
+          <span>📍 {areaName}</span>
+          <span>
+            ⏱ {sla?.minDeliveryTime}–{sla?.maxDeliveryTime} mins
+          </span>
         </div>
-    );
+      </div>
+
+      {/* Menu Heading */}
+      <div className="flex items-center gap-4 my-10">
+        <div className="flex-1 h-px bg-gray-300"></div>
+        <h2 className="text-xl font-semibold tracking-wide text-gray-700">
+          MENU
+        </h2>
+        <div className="flex-1 h-px bg-gray-300"></div>
+      </div>
+
+      {/* Menu Categories */}
+      <div className="space-y-4">
+        {resMenu?.map((category, index) => (
+          <ItemCategory
+            key={category.categoryId || index}
+            data={category}
+            showItems={index === openIndex}
+            toggleCategory={() =>
+              setOpenIndex(openIndex === index ? null : index)
+            }
+          />
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default RestaurantMenu;
