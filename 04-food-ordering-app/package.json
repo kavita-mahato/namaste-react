@@ -15,9 +15,16 @@
   "author": "Kavita Mahato",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.28.5",
+    "@babel/preset-env": "^7.28.5",
+    "@babel/preset-react": "^7.28.5",
+    "@testing-library/react": "^16.3.1",
+    "babel-jest": "^30.2.0",
+    "jest": "^30.2.0",
+    "jest-environment-jsdom": "^30.2.0",
     "parcel": "^2.16.1"
   },
-  "browserlist": [
+  "browserslist": [
     "last 2 Chrome versions",
     "last 2 Firefox versions"
   ],
